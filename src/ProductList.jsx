@@ -247,13 +247,14 @@ const handlePlantsClick = (e) => {
    const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
+    setAddedToCart({}); //Reset addedToCart when continuing shopping
   };
 
-  const handleAddToCart = (product) => {
-    dispatch(addItem(product));
+  const handleAddToCart = (plant) => {
+    dispatch(addItem(plant));
     setAddedToCart((prevState) => ({
         ...prevState,
-        [product.name]: true, //set the product name as key and value as true to indicate it's added to cart
+        [plant.name]: true, //set the product name as key and value as true to indicate it's added to cart
     }));
 };
     return (
@@ -283,14 +284,18 @@ const handlePlantsClick = (e) => {
                 <h1><div>{category.category}</div></h1>
             <div className="product-list">
             {category.plants.map((plant, plantIndex) => (
-        <div className="product-card" key={plantIndex}>
+            <div className="product-card" key={plantIndex}>
             <img className="product-image" src={plant.image} alt={plant.name} />
              <div className="product-title">{plant.name}</div>
              <div className="product-description">{plant.description}</div>
              <div className="product-cost">{plant.cost}</div>
              {/*Similarly like the above plant.name show other details like description and cost*/}
-             <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
-             </div>
+             <button 
+             className={`product-button $[addedToCart[plant.name] ? 'added-to-cart':''}`}
+             onClick={() => handleAddToCart(plant)}
+             disabled={addedToCart[plant.name]} 
+             >
+             {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"} </button> </div>
             ))}
             </div>
             </div>
