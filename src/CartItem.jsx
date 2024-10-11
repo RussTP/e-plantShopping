@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { removeItem, updateQuantity  } from './CartSlice';
 import './CartItem.css';
 
+
 const CartItem = ({ onContinueShopping }) => {
-  const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.items);
 
 
